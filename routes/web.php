@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\BookingController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -28,6 +29,8 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
 
     // Quản lý Tours
     Route::resource('tours', TourController::class);
+    // Booking
+    Route::resource('bookings', BookingController::class);
 
 });
 

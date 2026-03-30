@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Tour extends Model
 {
     protected $fillable = [
-        'name', 'image', 'destination', 'start_date', 'end_date', 'price', 'guide_id', 'status'
+        'name', 
+        'image', 
+        'destination', 
+        'start_date', 
+        'end_date', 
+        'price', 
+        'guide_id', 
+        'status'
     ];
 
     // Tour này do Hướng dẫn viên nào dẫn?

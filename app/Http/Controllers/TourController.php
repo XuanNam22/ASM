@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Tour;
 use App\Models\User;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class TourController extends Controller
@@ -14,10 +13,9 @@ class TourController extends Controller
      */
     public function index()
     {
-        // Lấy tất cả tour, kèm theo thông tin của người hướng dẫn (guide), sắp xếp mới nhất lên đầu
-        $tours = Tour::with('guide')->latest()->get();
+        // Tối ưu 1: Dùng paginate(10) thay cho get() để phân trang
+        $tours = Tour::with('guide')->latest()->paginate(10);
 
-        // Trả về giao diện và truyền biến $tours sang
         return view('admin.tours.index', compact('tours'));
     }
 
@@ -26,9 +24,7 @@ class TourController extends Controller
      */
     public function create()
     {
-        // Lấy danh sách các User có quyền là 'guide' để Admin chọn gán vào Tour
         $guides = User::where('role', 'guide')->get();
-
         return view('admin.tours.create', compact('guides'));
     }
 
@@ -37,21 +33,20 @@ class TourController extends Controller
      */
     public function store(Request $request)
     {
-        // 1. Xác thực dữ liệu (Validation)
-        $request->validate([
+        // Tối ưu 2: Gán kết quả validate vào biến $validated
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'destination' => 'required|string|max:255',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date', // Ngày kết thúc phải sau hoặc bằng ngày bắt đầu
+            'end_date' => 'required|date|after_or_equal:start_date',
             'price' => 'required|numeric|min:0|max:99000000',
-            'guide_id' => 'nullable|exists:users,id', // Có thể để trống, nếu có thì phải là id hợp lệ trong bảng users
+            'guide_id' => 'nullable|exists:users,id',
             'status' => 'required|in:open,ongoing,closed',
         ]);
 
-        // 2. Lưu dữ liệu vào Database
-        Tour::create($request->all());
+        // Chỉ lưu những dữ liệu đã được validate
+        Tour::create($validated);
 
-        // 3. Điều hướng về lại trang danh sách Tour kèm theo thông báo thành công
         return redirect()->route('tours.index')->with('success', 'Đã thêm Tour mới thành công!');
     }
 
@@ -66,19 +61,19 @@ class TourController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    // 3. Hiển thị Form sửa thông tin Tour
     public function edit(Tour $tour)
     {
-        // Lấy danh sách hướng dẫn viên để hiện ra select box
         $guides = User::where('role', 'guide')->get();
-
         return view('admin.tours.edit', compact('tour', 'guides'));
     }
 
-    // 4. Xử lý lưu dữ liệu sau khi sửa
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, Tour $tour)
     {
-        $request->validate([
+        // Tối ưu tương tự hàm store
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'destination' => 'required|string|max:255',
             'start_date' => 'required|date',
@@ -88,13 +83,14 @@ class TourController extends Controller
             'status' => 'required|in:open,ongoing,closed',
         ]);
 
-        // Cập nhật dữ liệu mới vào record hiện tại
-        $tour->update($request->all());
+        $tour->update($validated);
 
         return redirect()->route('tours.index')->with('success', 'Cập nhật Tour thành công!');
     }
 
-    // 5. Xử lý Xóa Tour
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(Tour $tour)
     {
         $tour->delete();

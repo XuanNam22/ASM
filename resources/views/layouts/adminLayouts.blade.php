@@ -49,7 +49,7 @@
             <div class="layout-px-spacing">
                 <div class="middle-content container-xxl p-0">
                     <!--  BEGIN BREADCRUMBS  -->
-                    <div class="secondary-nav">
+                    {{-- <div class="secondary-nav">
                         <div class="breadcrumbs-container" data-page-heading="Analytics">
                             <header class="header navbar navbar-expand-sm">
                                 <a href="javascript:void(0);" class="btn-toggle sidebarCollapse" data-placement="bottom">
@@ -107,7 +107,7 @@
                                 </ul>
                             </header>
                         </div>
-                    </div>
+                    </div> --}}
                     <!--  END BREADCRUMBS  -->   
     
                     <!--  BEGIN CONTENT  -->
