@@ -62,7 +62,7 @@
 
                 <ul class="collapse submenu list-unstyled" id="users" data-bs-parent="#accordionExample">
                     <li>
-                        <a href="{{ route('nhanvien.index') }}"> Danh sách </a>
+                        <a href=""> Danh sách </a>
                     </li>
                     <li>
                         <a href="#"> Thêm mới </a>
@@ -90,7 +90,7 @@
 
                 <ul class="collapse submenu list-unstyled" id="posts" data-bs-parent="#accordionExample">
                     <li>
-                        <a href="{{ route('tintuc.index') }}"> Danh sách </a>
+                        <a href=""> Danh sách </a>
                     </li>
                     <li>
                         <a href="#"> Thêm mới </a>
