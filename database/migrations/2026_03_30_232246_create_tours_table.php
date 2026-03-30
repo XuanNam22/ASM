@@ -20,10 +20,13 @@ return new class extends Migration
             $table->date('end_date'); // Ngày về
             $table->decimal('price', 10, 2); // Giá tour
 
-            // Khóa ngoại liên kết tới bảng users (chỉ những user có role='guide' mới được gán)
+            $table->integer('max_passengers')->unsigned(); // Số chỗ tối đa 
+            $table->integer('min_passengers')->unsigned()->default(1); // Số khách tối thiểu để khởi hành
+
+            // Khóa ngoại liên kết tới bảng users
             $table->foreignId('guide_id')->nullable()->constrained('users')->nullOnDelete();
 
-            $table->enum('status', ['open', 'ongoing', 'closed'])->default('open'); // Trạng thái
+            $table->enum('status', ['open', 'ongoing', 'closed', 'cancelled', 'completed'])->default('open'); 
             $table->timestamps();
         });
     }

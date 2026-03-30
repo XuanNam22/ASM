@@ -41,6 +41,8 @@ class TourSeeder extends Seeder
                 'end_date' => $endDate->format('Y-m-d'),
                 // Giá tour: Random từ 1.500.000 đến 10.000.000 (định dạng decimal)
                 'price' => $faker->randomFloat(2, 1500000, 10000000), 
+                'max_passengers' => $faker->numberBetween(20, 45), // Giả lập sức chứa xe 29 hoặc 45 chỗ
+                'min_passengers' => $faker->numberBetween(10, 15), // Giả lập số khách tối thiểu để chạy tour
                 // Gán ngẫu nhiên 1 Hướng dẫn viên (nếu có)
                 'guide_id' => !empty($guideIds) ? $faker->randomElement($guideIds) : null,
                 'status' => $faker->randomElement($statuses),

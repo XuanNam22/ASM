@@ -9,7 +9,9 @@
             <div class="card-body">
                 <form action="{{ route('tours.update', $tour->id) }}" method="POST">
                     @csrf
-                    @method('PUT') <div class="row mb-3">
+                    @method('PUT')
+
+                    <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Tên Tour</label>
                             <input type="text" name="name" class="form-control" value="{{ $tour->name }}" required>
@@ -39,6 +41,19 @@
                         </div>
                     </div>
 
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Số chỗ tối đa</label>
+                            <input type="number" name="max_passengers" class="form-control"
+                                value="{{ $tour->max_passengers }}" required min="1">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Số khách tối thiểu để khởi hành</label>
+                            <input type="number" name="min_passengers" class="form-control"
+                                value="{{ $tour->min_passengers }}" required min="1">
+                        </div>
+                    </div>
+
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <label class="form-label">Phân công Hướng dẫn viên</label>
@@ -58,18 +73,20 @@
                                 <option value="open" {{ $tour->status == 'open' ? 'selected' : '' }}>Mở bán</option>
                                 <option value="ongoing" {{ $tour->status == 'ongoing' ? 'selected' : '' }}>Đang diễn ra
                                 </option>
-                                <option value="closed" {{ $tour->status == 'closed' ? 'selected' : '' }}>Đã kết thúc
+                                <option value="closed" {{ $tour->status == 'closed' ? 'selected' : '' }}>Đã đóng</option>
+                                <option value="cancelled" {{ $tour->status == 'cancelled' ? 'selected' : '' }}>Đã hủy
                                 </option>
+                                <option value="completed" {{ $tour->status == 'completed' ? 'selected' : '' }}>Đã hoàn
+                                    thành</option>
                             </select>
                         </div>
                     </div>
 
                     <button type="submit" class="btn btn-warning px-5">Cập nhật Tour</button>
                 </form>
-                @csrf
 
                 @if ($errors->any())
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger mt-3">
                         <ul class="mb-0">
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>

@@ -18,11 +18,12 @@
                         <thead class="table-light">
                             <tr>
                                 <th style="width: 5%;">STT</th>
-                                <th style="width: 25%;">Tên Tour</th>
-                                <th style="width: 12%;">Điểm đến</th>
-                                <th style="width: 13%;">Thời gian</th>
+                                <th style="width: 20%;">Tên Tour</th>
+                                <th style="width: 10%;">Điểm đến</th>
+                                <th style="width: 12%;">Thời gian</th>
                                 <th style="width: 10%;">Giá</th>
-                                <th style="width: 15%;">Hướng dẫn viên</th>
+                                <th style="width: 10%;">Sức chứa</th>
+                                <th style="width: 13%;">Hướng dẫn viên</th>
                                 <th style="width: 10%;">Trạng thái</th>
                                 <th style="width: 10%;">Hành động</th>
                             </tr>
@@ -39,6 +40,12 @@
                                     </td>
                                     <td>{{ number_format($tour->price, 0, ',', '.') }} đ</td>
 
+                                    <td class="text-center">
+                                        <span class="badge {{ $tour->availableSeats() <= 0 ? 'bg-danger' : 'bg-success' }}">
+                                            Còn {{ $tour->availableSeats() }} / {{ $tour->max_passengers }} chỗ
+                                        </span>
+                                    </td>
+
                                     <td>
                                         @if ($tour->guide)
                                             <span class="badge bg-info text-dark">{{ $tour->guide->name }}</span>
@@ -51,9 +58,13 @@
                                         @if ($tour->status == 'open')
                                             <span class="badge bg-success">Mở bán</span>
                                         @elseif($tour->status == 'ongoing')
-                                            <span class="badge bg-warning">Đang diễn ra</span>
-                                        @else
-                                            <span class="badge bg-secondary">Đã kết thúc</span>
+                                            <span class="badge bg-warning text-dark">Đang diễn ra</span>
+                                        @elseif($tour->status == 'closed')
+                                            <span class="badge bg-secondary">Đã đóng</span>
+                                        @elseif($tour->status == 'cancelled')
+                                            <span class="badge bg-danger">Đã hủy</span>
+                                        @elseif($tour->status == 'completed')
+                                            <span class="badge bg-primary">Hoàn thành</span>
                                         @endif
                                     </td>
                                     <td>

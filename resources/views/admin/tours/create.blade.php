@@ -38,6 +38,19 @@
                         </div>
                     </div>
 
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Số chỗ tối đa (Max Passengers)</label>
+                            <input type="number" name="max_passengers" class="form-control" required min="1"
+                                placeholder="VD: 45">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Số khách tối thiểu để khởi hành</label>
+                            <input type="number" name="min_passengers" class="form-control" required min="1"
+                                placeholder="VD: 15">
+                        </div>
+                    </div>
+
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <label class="form-label">Phân công Hướng dẫn viên</label>
@@ -53,17 +66,18 @@
                             <select name="status" class="form-select">
                                 <option value="open">Mở bán</option>
                                 <option value="ongoing">Đang diễn ra</option>
-                                <option value="closed">Đã kết thúc</option>
+                                <option value="closed">Đã đóng (Không nhận thêm)</option>
+                                <option value="cancelled">Đã hủy</option>
+                                <option value="completed">Đã hoàn thành</option>
                             </select>
                         </div>
                     </div>
 
                     <button type="submit" class="btn btn-success px-5">Lưu Tour Mới</button>
                 </form>
-                @csrf
 
                 @if ($errors->any())
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger mt-3">
                         <ul class="mb-0">
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>

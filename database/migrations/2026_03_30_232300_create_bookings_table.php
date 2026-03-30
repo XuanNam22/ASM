@@ -14,11 +14,15 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tour_id')->constrained('tours')->cascadeOnDelete(); // Đặt tour nào
-            $table->string('customer_name'); // Tên khách
+            $table->string('customer_name'); // Tên khách (Người đại diện)
             $table->string('customer_phone'); // Số điện thoại
             $table->string('customer_email')->nullable(); // Email
             $table->integer('quantity'); // Số lượng vé
             $table->decimal('total_price', 12, 2); // Tổng tiền
+
+            // --- THÊM TRƯỜNG MỚI ---
+            $table->decimal('paid_amount', 12, 2)->default(0); // Số tiền đã thanh toán
+
             $table->enum('payment_status', ['unpaid', 'deposit', 'completed', 'cancelled'])->default('unpaid'); // Trạng thái thanh toán
             $table->timestamps();
         });

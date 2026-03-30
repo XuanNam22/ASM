@@ -35,13 +35,21 @@ class TourController extends Controller
     {
         // Tối ưu 2: Gán kết quả validate vào biến $validated
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'destination' => 'required|string|max:255',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'price' => 'required|numeric|min:0|max:99000000',
-            'guide_id' => 'nullable|exists:users,id',
-            'status' => 'required|in:open,ongoing,closed',
+            'name'           => 'required|string|max:255',
+            'destination'    => 'required|string|max:255',
+            'start_date'     => 'required|date',
+            'end_date'       => 'required|date|after_or_equal:start_date',
+            'price'          => 'required|numeric|min:0|max:99000000',
+            'max_passengers' => 'required|integer|min:1',
+            'min_passengers' => 'required|integer|min:1|lte:max_passengers', 
+            'guide_id'       => 'nullable|exists:users,id',
+            'status'         => 'required|in:open,ongoing,closed,cancelled,completed',
+        ], [
+            'max_passengers.required' => 'Vui lòng nhập số chỗ tối đa.',
+            'max_passengers.min'      => 'Số chỗ tối đa phải từ 1 trở lên.',
+            'min_passengers.required' => 'Vui lòng nhập số khách tối thiểu.',
+            'min_passengers.lte'      => 'Số khách tối thiểu không được lớn hơn số chỗ tối đa.',
+            'status.in'               => 'Trạng thái không hợp lệ.'
         ]);
 
         // Chỉ lưu những dữ liệu đã được validate
