@@ -9,15 +9,15 @@ use App\Http\Controllers\GuideController;
 use App\Http\Controllers\Guide\DashboardController as GuideDashboardController;
 use App\Http\Controllers\Guide\TourController as GuideTourController;
 use App\Http\Controllers\Guide\ProfileController as GuideProfileController;
+use App\Http\Controllers\AttendanceController;
 
 // ... (code cũ của bạn) ...
 
 // KHU VỰC CỦA HƯỚNG DẪN VIÊN
 Route::middleware(['guide'])->prefix('guide')->group(function () {
-    
+
     // Thay thế function() cũ bằng Controller
     Route::get('/dashboard', [GuideDashboardController::class, 'index'])->name('guide.dashboard');
-
 });
 
 Route::get('/', function () {
@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
 
 // KHU VỰC CỦA ADMIN 
 Route::middleware(['admin'])->prefix('admin')->group(function () {
-    
+
     // Đã chuyển phần function() lằng nhằng sang file DashboardController
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
@@ -58,4 +58,12 @@ Route::middleware(['guide'])->prefix('guide')->name('guide.')->group(function ()
     Route::post('/tours/{id}/attendance', [GuideTourController::class, 'saveAttendance'])->name('tours.attendance.save');
     Route::get('/profile', [GuideProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [GuideProfileController::class, 'update'])->name('profile.update');
+});
+
+Route::middleware(['auth'])->group(function () {
+    // Route xem danh sách điểm danh của 1 tour
+    Route::get('/tours/{tour_id}/attendances', [AttendanceController::class, 'index'])->name('attendances.index');
+
+    // Route lưu/cập nhật kết quả điểm danh
+    Route::post('/tours/{tour_id}/attendances', [AttendanceController::class, 'store'])->name('attendances.store');
 });

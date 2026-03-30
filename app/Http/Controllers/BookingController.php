@@ -8,23 +8,18 @@ use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
-    // 1. Hiển thị danh sách Booking
     public function index()
     {
-        // Lấy danh sách booking kèm thông tin tour, phân trang 10 dòng
         $bookings = Booking::with('tour')->latest()->paginate(10);
         return view('admin.bookings.index', compact('bookings'));
     }
 
-    // 2. Hiển thị form tạo mới
     public function create()
     {
-        // Lấy danh sách Tour để admin chọn khi đặt chỗ
         $tours = Tour::latest()->get();
         return view('admin.bookings.create', compact('tours'));
     }
 
-    // 3. Xử lý lưu Booking mới
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -34,31 +29,42 @@ class BookingController extends Controller
             'customer_email' => 'nullable|email|max:255',
             'quantity' => 'required|integer|min:1',
             'payment_status' => 'required|in:unpaid,deposit,completed,cancelled',
+            'paid_amount' => 'nullable|numeric|min:0',
+            'passengers' => 'required|array',
+            'passengers.*.name' => 'required|string|max:255', 
+            'passengers.*.dob' => 'nullable|date',
+            'passengers.*.id_card' => 'nullable|string|max:20',
+            'passengers.*.note' => 'nullable|string|max:500',
         ]);
 
-        // Logic tự động tính Tổng tiền = Giá tour * Số lượng vé
         $tour = Tour::findOrFail($request->tour_id);
         $validated['total_price'] = $tour->price * $validated['quantity'];
+        $validated['paid_amount'] = $request->paid_amount ?? 0; 
 
-        Booking::create($validated);
+        // 1. Tạo Booking
+        $booking = Booking::create($validated);
 
-        return redirect()->route('bookings.index')->with('success', 'Tạo Booking mới thành công!');
+        // 2. Lưu danh sách hành khách chi tiết
+        if ($request->has('passengers')) {
+            foreach ($request->passengers as $passengerData) {
+                $booking->passengers()->create($passengerData);
+            }
+        }
+
+        return redirect()->route('bookings.index')->with('success', 'Tạo Booking và danh sách khách thành công!');
     }
 
-    // 4. Xem chi tiết (Tạm thời bỏ qua nếu chưa cần)
     public function show(Booking $booking)
     {
         //
     }
 
-    // 5. Hiển thị form chỉnh sửa
     public function edit(Booking $booking)
     {
         $tours = Tour::latest()->get();
         return view('admin.bookings.edit', compact('booking', 'tours'));
     }
 
-    // 6. Xử lý cập nhật Booking
     public function update(Request $request, Booking $booking)
     {
         $validated = $request->validate([
@@ -68,18 +74,18 @@ class BookingController extends Controller
             'customer_email' => 'nullable|email|max:255',
             'quantity' => 'required|integer|min:1',
             'payment_status' => 'required|in:unpaid,deposit,completed,cancelled',
+            'paid_amount' => 'nullable|numeric|min:0',
         ]);
 
-        // Cập nhật lại tổng tiền nếu Admin có thay đổi Tour hoặc Số lượng
         $tour = Tour::findOrFail($request->tour_id);
         $validated['total_price'] = $tour->price * $validated['quantity'];
+        $validated['paid_amount'] = $request->paid_amount ?? $booking->paid_amount;
 
         $booking->update($validated);
 
         return redirect()->route('bookings.index')->with('success', 'Cập nhật Booking thành công!');
     }
 
-    // 7. Xử lý xóa Booking
     public function destroy(Booking $booking)
     {
         $booking->delete();

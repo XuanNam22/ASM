@@ -95,18 +95,26 @@
                                         {{ \Carbon\Carbon::parse($tour->start_date)->format('d/m/Y') }} -
                                         {{ \Carbon\Carbon::parse($tour->end_date)->format('d/m/Y') }}
                                     </td>
+
                                     <td class="text-center">
                                         @if ($tour->status == 'open')
                                             <span class="badge bg-success">Sắp khởi hành</span>
                                         @elseif($tour->status == 'ongoing')
                                             <span class="badge bg-warning text-dark">Đang diễn ra</span>
-                                        @else
-                                            <span class="badge bg-secondary">Đã kết thúc</span>
+                                        @elseif($tour->status == 'closed')
+                                            <span class="badge bg-secondary">Đã chốt danh sách</span>
+                                        @elseif($tour->status == 'completed')
+                                            <span class="badge bg-primary">Hoàn thành</span>
+                                        @elseif($tour->status == 'cancelled')
+                                            <span class="badge bg-danger">Đã hủy</span>
                                         @endif
                                     </td>
+
                                     <td class="text-center">
-                                        <a href="{{ route('guide.tours.show', $tour->id) }}"
-                                            class="btn btn-sm btn-primary">Xem đoàn & Điểm danh</a>
+                                        <a href="{{ route('attendances.index', $tour->id) }}"
+                                            class="btn btn-sm btn-primary {{ $tour->status == 'cancelled' ? 'disabled' : '' }}">
+                                            Xem đoàn & Điểm danh
+                                        </a>
                                     </td>
                                 </tr>
                             @empty

@@ -37,7 +37,7 @@ class BookingSeeder extends Seeder
                 'customer_phone' => $faker->phoneNumber,
                 'customer_email' => $faker->unique()->safeEmail,
                 'quantity' => $quantity,
-                // Tính chính xác Tổng tiền = Giá Tour x Số lượng vé
+                'paid_amount' => 0,
                 'total_price' => $tour->price * $quantity,
                 'payment_status' => $faker->randomElement($statuses),
             ]);
