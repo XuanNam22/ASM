@@ -11,11 +11,17 @@ class RoleGuide
 {
     public function handle(Request $request, Closure $next): Response
     {
-        // Hướng dẫn viên thì được qua
-        if (Auth::check() && Auth::user()->role === 'guide') {
+        // 1. Chưa đăng nhập thì bắt đi đăng nhập
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
+
+        // 2. Nếu đúng là Guide thì cho qua
+        if (Auth::user()->role === 'guide') {
             return $next($request);
         }
-        
-        return redirect('/login')->with('error', 'Bạn không có quyền truy cập khu vực này!');
+
+        // 3. Đã đăng nhập nhưng sai quyền (ví dụ Admin đi lạc vào đây) thì báo lỗi 403
+        abort(403, 'Bạn không có quyền truy cập khu vực của Hướng dẫn viên!');
     }
 }

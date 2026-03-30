@@ -6,6 +6,19 @@ use App\Http\Controllers\TourController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\GuideController;
+use App\Http\Controllers\Guide\DashboardController as GuideDashboardController;
+use App\Http\Controllers\Guide\TourController as GuideTourController;
+use App\Http\Controllers\Guide\ProfileController as GuideProfileController;
+
+// ... (code cũ của bạn) ...
+
+// KHU VỰC CỦA HƯỚNG DẪN VIÊN
+Route::middleware(['guide'])->prefix('guide')->group(function () {
+    
+    // Thay thế function() cũ bằng Controller
+    Route::get('/dashboard', [GuideDashboardController::class, 'index'])->name('guide.dashboard');
+
+});
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -37,10 +50,12 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
 });
 
 // KHU VỰC CỦA HƯỚNG DẪN VIÊN
-Route::middleware(['guide'])->prefix('guide')->group(function () {
-    
-    Route::get('/dashboard', function () {
-        return 'Đây là trang tổng quan của Hướng dẫn viên';
-    })->name('guide.dashboard');
+// Thêm ->name('guide.') để tự động nối chữ "guide." vào trước tất cả các name bên trong
+Route::middleware(['guide'])->prefix('guide')->name('guide.')->group(function () {
 
+    Route::get('/dashboard', [GuideDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/tours/{id}', [GuideTourController::class, 'show'])->name('tours.show');
+    Route::post('/tours/{id}/attendance', [GuideTourController::class, 'saveAttendance'])->name('tours.attendance.save');
+    Route::get('/profile', [GuideProfileController::class, 'index'])->name('profile');
+    Route::put('/profile', [GuideProfileController::class, 'update'])->name('profile.update');
 });
