@@ -23,7 +23,7 @@
                     <p class="card-text text-white-50">Nhân sự sẵn sàng dẫn đoàn</p>
                 </div>
                 <div class="card-footer px-4 pt-0 border-0 bg-transparent">
-                    <a href="#" class="text-white font-weight-bold">Xem danh sách &rarr;</a>
+                    <a href="{{ route('guides.index') }}" class="text-white font-weight-bold">Xem danh sách &rarr;</a>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
                     <p class="card-text text-white-50">Tổng số đơn khách đặt tour</p>
                 </div>
                 <div class="card-footer px-4 pt-0 border-0 bg-transparent">
-                    <a href="#" class="text-white font-weight-bold">Quản lý Booking &rarr;</a>
+                    <a href="{{ route('bookings.index') }}" class="text-white font-weight-bold">Quản lý Booking &rarr;</a>
                 </div>
             </div>
         </div>
