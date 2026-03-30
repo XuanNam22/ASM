@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\GuideController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -31,7 +32,8 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::resource('tours', TourController::class);
     // Booking
     Route::resource('bookings', BookingController::class);
-
+    // HDV
+    Route::resource('guides', GuideController::class);
 });
 
 // KHU VỰC CỦA HƯỚNG DẪN VIÊN

@@ -105,8 +105,10 @@
                     </ul>
                 </li>
 
-                <li class="menu">
-                    <a href="#users" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <li class="menu {{ request()->routeIs('guides.*') ? 'active' : '' }}">
+                    <a href="#users" data-bs-toggle="collapse"
+                        aria-expanded="{{ request()->routeIs('guides.*') ? 'true' : 'false' }}"
+                        class="dropdown-toggle">
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -118,7 +120,19 @@
                             </svg>
                             <span>Hướng dẫn viên</span>
                         </div>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
                     </a>
+                    <ul class="collapse submenu list-unstyled {{ request()->routeIs('guides.*') ? 'show' : '' }}"
+                        id="users" data-bs-parent="#accordionExample">
+                        <li class="{{ request()->routeIs('guides.index') ? 'active' : '' }}">
+                            <a href="{{ route('guides.index') }}"> Danh sách HDV </a>
+                        </li>
+                    </ul>
                 </li>
             @endif
 
