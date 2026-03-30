@@ -1,0 +1,24 @@
+1. Router được khai báo trong file routes/web.php
+
+2. Controller được khai báo trong folder app/Http/controllers
+
+3. Model được khai báo trong folder app/Models
+   - Mỗi file model là 1 bảng trong CSDL
+
+4. View được khai báo trong resources/views
+   - Sử dụng blade view / nên phân vùng các chức năng thành folder để dễ qlý
+
+5. File .env chứa cấu hình của ứng dụng, không đẩy lên git
+   - Pull code từ git về sẽ phải tạo lại file .env từ file env-example
+      + Trường hợp thiếu APP_KEY: "php artisan key:generate"
+   - Cần chú ý APP_KEY
+   - Chú ý cấu hình kết nối CSDL
+   - Khi deploy dự án cần chuyển APP_DEBUG=true => APP_DEBUG=false
+
+6. Cần cấu hình lại timezone trong config/app.php: 'timezone' => 'Asia/Ho_Chi_Minh'
+
+7. Về vòng đời
+   - Người dùng truy cập qua đường dẫn router
+   - Ứng dụng nhận request từ router và gọi đến controllers
+   - Controller xử lý logic, call data từ models
+   - Sau khi controller hoàn tất công việc sẽ return về view (blade)

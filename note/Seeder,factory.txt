@@ -1,0 +1,23 @@
+1. Seeder - Dùng để tạo dữ liệu mẫu
+   - Seeder sử dụng để tạo dữ liệu theo quy mô giới hạn, giá trị được định nghĩa sẵn
+   - Seeder phù hợp cho việc tạo số lượng bản ghi vừa phải
+   - Các file seeder được khai báo trong folder: database/seeders
+   - Để khởi tạo file seeder: php artisan make:seeder TenBangSeeder
+   - Để chạy file seeder:
+     + Cách 1: php artisan db:seed --class=TenBangSeeder
+     + Cách 2: Thêm TenBangSeeder vào file DatabaseSeeder theo cú pháp
+       $this->call([
+           TenBang1Seeder::class,
+           TenBang2Seeder::class
+       ]);
+       Sau đó chạy lệnh: php artisan db:seed
+   - Lưu ý: seeder hoạt động độc lập
+
+2. Factory - Dùng để tạo dữ liệu mẫu
+   - Factory dùng để tạo dữ liệu mẫu theo dạng Random, sử dụng thư viện PHPFaker
+   - Factory phù hợp cho việc tạo số lượng bản ghi lớn, nhanh, ít cần đặt điều kiện
+   - Các file Factory được khai báo trong folder: database/factories
+   - Để khởi tạo file Factory: php artisan make:factory TenBangFactory
+   - Để chạy file factory thì khai báo TenBangFactory vào file DatabaseSeeder
+   - Lưu ý: Factory dùng Eloquent nên bắt buộc phải có models đi kèm
+            nên có thể tạo nhanh: php artisan make:model TenBang -f

@@ -1,0 +1,14 @@
+Migration - Dùng để tạo CSDL, tạo bảng, điều chỉnh bảng trong CSDL
+- Các file Migration nằm trong folder database/migrations
+- Cấu trúc file migrations gồm 2 hàm
+  + function up(): Dùng để thực thi đi (khi migrate sẽ gọi đến hàm up của các file)
+  + function down(): dùng để thực thi quay lại(khi rollback sẽ gọi đến hàm down)
+- Để tạo file migration: "php artisan make:migration create/update/add_field/drop_field + _ten_table
+- Để chạy migration: "php artisan migrate"
+- Để quay lại bước(batch) vừa chạy: "php artisan migrate:rollback"
+- Để quay lại theo số file từ dưới lên: "php artisan migrate:rollback --step=*"
+- Để quay bước nhất định: "php artisan migrate:rollback --batch=*"
+- Để quay lại một file migration chỉ định: "php artisan migrate:rollback --path=/database/migrations/file.php"
+- Lưu ý khi dùng lệnh "php artisan migrate:reset" hoặc "php artisan migrate:refresh"
+  thì CSDL sẽ xóa toàn bộ, không thể khôi phục, chỉ dùng cho trường hợp db không có dữ liệu
+                                                                           hoặc dữ liệu không quan trọng
