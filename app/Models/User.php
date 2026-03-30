@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -45,5 +46,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Một User (Hướng dẫn viên) có nhiều Tour
+    public function tours()
+    {
+        return $this->hasMany(Tour::class, 'guide_id');
     }
 }

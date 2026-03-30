@@ -2,58 +2,54 @@
 
 @section('content')
     <div class="row layout-top-spacing">
-        <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
-            <div class="card bg-primary">
-                <div class="card-body pt-3">
-                    <h5 class="card-title mb-3">Card Title</h5>
-                    <p class="card-text">Powerful CRM admin dashboard template based on Bootstrap and Sass for all kind of
-                        back-end projects.</p>
+        <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
+            <div class="card bg-primary h-100 shadow-sm">
+                <div class="card-body pt-4">
+                    <h6 class="card-title mb-2 text-white">TỔNG SỐ TOUR</h6>
+                    <h2 class="text-white font-weight-bold">{{ $totalTours ?? 0 }}</h2>
+                    <p class="card-text text-white-50">Đang lưu trữ trên hệ thống</p>
                 </div>
-                <div class="card-footer px-4 pt-0 border-0">
-                    <a href="https://themeforest.net/item/cork-responsive-admin-dashboard-template/25582188"
-                        target="_blank">Visit on Themeforest.</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
-            <div class="card bg-secondary">
-                <div class="card-body pt-3">
-                    <h5 class="card-title mb-3">Card Title</h5>
-                    <p class="card-text">Powerful CRM admin dashboard template based on Bootstrap and Sass for all kind of
-                        back-end projects.</p>
-                </div>
-                <div class="card-footer px-4 pt-0 border-0">
-                    <a href="https://themeforest.net/item/cork-responsive-admin-dashboard-template/25582188"
-                        target="_blank">Visit on Themeforest.</a>
+                <div class="card-footer px-4 pt-0 border-0 bg-transparent">
+                    <a href="{{ route('tours.index') }}" class="text-white font-weight-bold">Xem chi tiết &rarr;</a>
                 </div>
             </div>
         </div>
 
-        <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
-            <div class="card bg-dark">
-                <div class="card-body pt-3">
-                    <h5 class="card-title mb-3">Card Title</h5>
-                    <p class="card-text">Powerful CRM admin dashboard template based on Bootstrap and Sass for all kind of
-                        back-end projects.</p>
+        <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
+            <div class="card bg-secondary h-100 shadow-sm">
+                <div class="card-body pt-4">
+                    <h6 class="card-title mb-2 text-white">HƯỚNG DẪN VIÊN</h6>
+                    <h2 class="text-white font-weight-bold">{{ $totalGuides ?? 0 }}</h2>
+                    <p class="card-text text-white-50">Nhân sự sẵn sàng dẫn đoàn</p>
                 </div>
-                <div class="card-footer px-4 pt-0 border-0">
-                    <a href="https://themeforest.net/item/cork-responsive-admin-dashboard-template/25582188"
-                        target="_blank">Visit on Themeforest.</a>
+                <div class="card-footer px-4 pt-0 border-0 bg-transparent">
+                    <a href="#" class="text-white font-weight-bold">Xem danh sách &rarr;</a>
                 </div>
             </div>
         </div>
 
-        <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
-            <div class="card bg-danger">
-                <div class="card-body pt-3">
-                    <h5 class="card-title mb-3">Card Title</h5>
-                    <p class="card-text">Powerful CRM admin dashboard template based on Bootstrap and Sass for all kind of
-                        back-end projects.</p>
+        <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
+            <div class="card bg-dark h-100 shadow-sm">
+                <div class="card-body pt-4">
+                    <h6 class="card-title mb-2 text-white">LƯỢT ĐẶT CHỖ (BOOKING)</h6>
+                    <h2 class="text-white font-weight-bold">{{ $totalBookings ?? 0 }}</h2>
+                    <p class="card-text text-white-50">Tổng số đơn khách đặt tour</p>
                 </div>
-                <div class="card-footer px-4 pt-0 border-0">
-                    <a href="https://themeforest.net/item/cork-responsive-admin-dashboard-template/25582188"
-                        target="_blank">Visit on Themeforest.</a>
+                <div class="card-footer px-4 pt-0 border-0 bg-transparent">
+                    <a href="#" class="text-white font-weight-bold">Quản lý Booking &rarr;</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
+            <div class="card bg-danger h-100 shadow-sm">
+                <div class="card-body pt-4">
+                    <h6 class="card-title mb-2 text-white">DOANH THU ĐÃ THU</h6>
+                    <h2 class="text-white font-weight-bold">{{ number_format($revenue ?? 0, 0, ',', '.') }}đ</h2>
+                    <p class="card-text text-white-50">Từ các đơn đã thanh toán</p>
+                </div>
+                <div class="card-footer px-4 pt-0 border-0 bg-transparent">
+                    <a href="#" class="text-white font-weight-bold">Xem báo cáo &rarr;</a>
                 </div>
             </div>
         </div>
@@ -62,231 +58,42 @@
             <div class="statbox widget box box-shadow">
                 <div class="widget-header">
                     <div class="row">
-                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                            <h4>Table</h4>
+                        <div class="col-xl-12 col-md-12 col-sm-12 col-12 pt-3 pb-2 px-4">
+                            <h4>Tour Vừa Cập Nhật</h4>
                         </div>
                     </div>
                 </div>
                 <div class="widget-content widget-content-area">
                     <div class="table-responsive">
-                        <table class="table table-bordered mb-4">
-                            <thead>
+                        <table class="table table-bordered table-hover mb-4">
+                            <thead class="table-light">
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>Sale</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Action</th>
+                                    <th>Tên Tour</th>
+                                    <th>Điểm đến</th>
+                                    <th>Ngày khởi hành</th>
+                                    <th>Mức giá</th>
+                                    <th class="text-center">Trạng thái</th>
                                 </tr>
-                                <tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>
                             </thead>
                             <tbody>
+                                @forelse($recentTours ?? [] as $tour)
                                 <tr>
-                                    <td>Shaun</td>
-                                    <td>10/08/2022</td>
-                                    <td>320</td>
-                                    <td class="text-center"><span class="badge badge-success">Approved</span></td>
+                                    <td class="font-weight-bold text-primary">{{ $tour->name }}</td>
+                                    <td>{{ $tour->destination }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($tour->start_date)->format('d/m/Y') }}</td>
+                                    <td>{{ number_format($tour->price, 0, ',', '.') }} VNĐ</td>
                                     <td class="text-center">
-
-                                        <div class="dropdown custom-dropdown">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-more-horizontal">
-                                                    <circle cx="12" cy="12" r="1"></circle>
-                                                    <circle cx="19" cy="12" r="1"></circle>
-                                                    <circle cx="5" cy="12" r="1"></circle>
-                                                </svg>
-                                            </a>
-
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                                                <a class="dropdown-item" href="javascript:void(0);">Download</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                            </div>
-                                        </div>
-
+                                        @if($tour->status == 'open') <span class="badge bg-success">Mở bán</span>
+                                        @elseif($tour->status == 'ongoing') <span class="badge bg-warning">Đang diễn ra</span>
+                                        @else <span class="badge bg-secondary">Đã kết thúc</span>
+                                        @endif
                                     </td>
                                 </tr>
+                                @empty
                                 <tr>
-                                    <td>Alma</td>
-                                    <td>11/08/2022</td>
-                                    <td>420</td>
-                                    <td class="text-center"><span class="badge badge-primary">In Progress</span></td>
-                                    <td class="text-center">
-
-                                        <div class="dropdown custom-dropdown">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-more-horizontal">
-                                                    <circle cx="12" cy="12" r="1"></circle>
-                                                    <circle cx="19" cy="12" r="1"></circle>
-                                                    <circle cx="5" cy="12" r="1"></circle>
-                                                </svg>
-                                            </a>
-
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
-                                                <a class="dropdown-item" href="javascript:void(0);">Download</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <td colspan="5" class="text-center text-muted py-4">Chưa có dữ liệu Tour nào trong hệ thống.</td>
                                 </tr>
-                                <tr>
-                                    <td>Kelly</td>
-                                    <td>12/08/2022</td>
-                                    <td>130</td>
-                                    <td class="text-center"><span class="badge badge-warning">Suspended</span></td>
-                                    <td class="text-center">
-
-                                        <div class="dropdown custom-dropdown">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                id="dropdownMenuLink3" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-more-horizontal">
-                                                    <circle cx="12" cy="12" r="1"></circle>
-                                                    <circle cx="19" cy="12" r="1"></circle>
-                                                    <circle cx="5" cy="12" r="1"></circle>
-                                                </svg>
-                                            </a>
-
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink3">
-                                                <a class="dropdown-item" href="javascript:void(0);">Download</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Xavier</td>
-                                    <td>13/08/2022</td>
-                                    <td>260</td>
-                                    <td class="text-center"><span class="badge badge-danger">Blocked</span></td>
-                                    <td class="text-center">
-
-                                        <div class="dropdown custom-dropdown">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                id="dropdownMenuLink4" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-more-horizontal">
-                                                    <circle cx="12" cy="12" r="1"></circle>
-                                                    <circle cx="19" cy="12" r="1"></circle>
-                                                    <circle cx="5" cy="12" r="1"></circle>
-                                                </svg>
-                                            </a>
-
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink4">
-                                                <a class="dropdown-item" href="javascript:void(0);">Download</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Andy</td>
-                                    <td>14/08/2022</td>
-                                    <td>99</td>
-                                    <td class="text-center"><span class="badge badge-secondary">On leave</span></td>
-                                    <td class="text-center">
-                                        <div class="dropdown custom-dropdown">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                id="dropdownMenuLink5" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-more-horizontal">
-                                                    <circle cx="12" cy="12" r="1"></circle>
-                                                    <circle cx="19" cy="12" r="1"></circle>
-                                                    <circle cx="5" cy="12" r="1"></circle>
-                                                </svg>
-                                            </a>
-
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink5">
-                                                <a class="dropdown-item" href="javascript:void(0);">Download</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Justin</td>
-                                    <td>15/08/2022</td>
-                                    <td>555</td>
-                                    <td class="text-center"><span class="badge badge-info">Pending</span></td>
-                                    <td class="text-center">
-                                        <div class="dropdown custom-dropdown">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                id="dropdownMenuLink6" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-more-horizontal">
-                                                    <circle cx="12" cy="12" r="1"></circle>
-                                                    <circle cx="19" cy="12" r="1"></circle>
-                                                    <circle cx="5" cy="12" r="1"></circle>
-                                                </svg>
-                                            </a>
-
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink6">
-                                                <a class="dropdown-item" href="javascript:void(0);">Download</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Amy</td>
-                                    <td>16/08/2022</td>
-                                    <td>300</td>
-                                    <td class="text-center"><span class="badge badge-dark">Deleted</span></td>
-                                    <td class="text-center">
-                                        <div class="dropdown custom-dropdown">
-                                            <a class="dropdown-toggle" href="#" role="button"
-                                                id="dropdownMenuLink7" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-more-horizontal">
-                                                    <circle cx="12" cy="12" r="1"></circle>
-                                                    <circle cx="19" cy="12" r="1"></circle>
-                                                    <circle cx="5" cy="12" r="1"></circle>
-                                                </svg>
-                                            </a>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink7">
-                                                <a class="dropdown-item" href="javascript:void(0);">Download</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
